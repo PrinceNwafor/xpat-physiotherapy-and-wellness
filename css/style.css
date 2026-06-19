@@ -275,45 +275,69 @@ p  { color: var(--color-text-soft); }
    8. HERO
    -------------------------------------------------------------------------- */
 .hero {
-  position: relative; overflow: hidden;
+  position: relative; overflow: hidden; isolation: isolate;
+  color: #fff;
   background:
-    radial-gradient(1100px 500px at 85% -10%, rgba(164,30,132,.10), transparent 60%),
-    radial-gradient(900px 500px at 0% 110%, rgba(30,158,62,.10), transparent 55%),
-    linear-gradient(180deg, var(--color-cream), #fff);
-  padding: var(--space-16) 0 var(--space-20);
+    linear-gradient(155deg, #0A4079 0%, #0E5CA8 50%, #6E1359 130%);
+  padding: var(--space-10) 0 var(--space-16);
+}
+/* layered glow + subtle dotted texture for depth */
+.hero::before {
+  content: ""; position: absolute; z-index: -2; inset: 0;
+  background:
+    radial-gradient(520px 520px at 88% -8%, rgba(201,63,168,.55), transparent 65%),
+    radial-gradient(460px 460px at -6% 112%, rgba(30,158,62,.40), transparent 62%);
+}
+.hero::after {
+  content: ""; position: absolute; z-index: -1; inset: 0; opacity: .5;
+  background-image: radial-gradient(rgba(255,255,255,.10) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent 70%);
+  mask-image: linear-gradient(180deg, #000, transparent 70%);
 }
 .hero__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-10); align-items: center; }
 .hero__badge {
   display: inline-flex; align-items: center; gap: var(--space-2);
-  background: var(--color-accent-subtle); color: var(--color-accent-dark);
+  background: rgba(255,255,255,.14); color: #fff;
+  border: 1px solid rgba(255,255,255,.22);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
   font-weight: 600; font-size: var(--text-sm);
   padding: var(--space-2) var(--space-4); border-radius: var(--radius-full);
   margin-bottom: var(--space-5);
 }
-.hero__badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-green); box-shadow: 0 0 0 4px rgba(30,158,62,.18); }
-.hero h1 { margin-bottom: var(--space-5); }
+.hero__badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #43e07a; box-shadow: 0 0 0 4px rgba(67,224,122,.28); }
+.hero h1 { color: #fff; margin-bottom: var(--space-5); text-shadow: 0 2px 18px rgba(8,30,60,.25); }
 .hero h1 .grad {
-  background: linear-gradient(100deg, var(--color-accent), var(--color-primary));
+  background: linear-gradient(100deg, #FFC2EC 0%, #FFFFFF 45%, #9CECC4 100%);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
-.hero__lead { font-size: var(--text-lg); max-width: 560px; margin-bottom: var(--space-8); }
+.hero__lead { font-size: var(--text-lg); color: rgba(255,255,255,.9); max-width: 560px; margin-bottom: var(--space-8); }
 .hero__cta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-bottom: var(--space-8); }
-.hero__trust { display: flex; flex-wrap: wrap; gap: var(--space-5) var(--space-8); }
-.hero__trust-item { display: flex; align-items: center; gap: var(--space-3); }
-.hero__trust-item svg { width: 26px; height: 26px; color: var(--color-green); flex-shrink: 0; }
-.hero__trust-item b { display: block; font-family: var(--font-heading); color: var(--color-primary-dark); font-size: var(--text-lg); line-height: 1.1; }
-.hero__trust-item span { font-size: var(--text-sm); color: var(--color-muted); }
+.hero__trust { display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-6); }
+.hero__trust-item {
+  display: flex; align-items: center; gap: var(--space-3);
+  background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.16);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  padding: var(--space-3) var(--space-4); border-radius: var(--radius-md);
+}
+.hero__trust-item svg { width: 24px; height: 24px; color: #6fe6a0; flex-shrink: 0; }
+.hero__trust-item b { display: block; font-family: var(--font-heading); color: #fff; font-size: var(--text-lg); line-height: 1.1; }
+.hero__trust-item span { font-size: var(--text-xs); color: rgba(255,255,255,.72); }
 
 .hero__media { position: relative; }
 .hero__media-main {
   border-radius: var(--radius-2xl); overflow: hidden;
-  box-shadow: var(--shadow-xl); aspect-ratio: 4 / 3;
+  box-shadow: 0 30px 60px rgba(5,22,45,.45);
+  border: 5px solid rgba(255,255,255,.14);
+  aspect-ratio: 4 / 3;
 }
 .hero__media-main img { width: 100%; height: 100%; object-fit: cover; }
 .hero__media-card {
-  position: absolute; left: var(--space-4); bottom: calc(-1 * var(--space-6));
-  background: #fff; border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg); padding: var(--space-4) var(--space-5);
+  position: absolute; left: var(--space-4); bottom: calc(-1 * var(--space-5));
+  background: rgba(255,255,255,.96);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl); padding: var(--space-4) var(--space-5);
   display: flex; align-items: center; gap: var(--space-3);
   max-width: calc(100% - var(--space-8));
 }
@@ -329,10 +353,17 @@ p  { color: var(--color-text-soft); }
 /* --------------------------------------------------------------------------
    9. LOGOS / MARQUEE OF VALUES
    -------------------------------------------------------------------------- */
-.ribbon { background: var(--color-primary-dark); color: #fff; padding: var(--space-5) 0; }
-.ribbon__track { display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-8); justify-content: center; align-items: center; }
-.ribbon__item { display: inline-flex; align-items: center; gap: var(--space-2); font-weight: 500; font-size: var(--text-sm); opacity: .92; white-space: nowrap; }
-.ribbon__item svg { width: 18px; height: 18px; color: var(--color-accent-light); flex-shrink: 0; }
+.ribbon { background: var(--color-warm); border-bottom: 1px solid var(--color-border-light); padding: var(--space-5) 0; }
+.ribbon__track { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-6); justify-content: center; align-items: center; }
+.ribbon__item {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  font-family: var(--font-heading); font-weight: 600; font-size: var(--text-sm);
+  color: var(--color-primary-dark); white-space: nowrap;
+  background: #fff; border: 1px solid var(--color-border-light);
+  padding: var(--space-2) var(--space-4); border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+}
+.ribbon__item svg { width: 18px; height: 18px; color: var(--color-green); flex-shrink: 0; }
 
 /* --------------------------------------------------------------------------
    10. CONDITIONS / SERVICES CARDS
@@ -345,14 +376,25 @@ p  { color: var(--color-text-soft); }
   transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
   position: relative; overflow: hidden;
 }
-.card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--color-border); }
+.card::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 4px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
+  transform: scaleX(0); transform-origin: left; transition: transform var(--transition-base);
+}
+.card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: transparent; }
+.card:hover::before { transform: scaleX(1); }
 .card__ico {
-  width: 54px; height: 54px; border-radius: 14px; display: grid; place-items: center;
-  margin-bottom: var(--space-4); background: var(--color-accent-subtle); color: var(--color-accent);
+  width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center;
+  margin-bottom: var(--space-4); color: #fff;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+  box-shadow: 0 8px 20px rgba(164,30,132,.28);
 }
 .card__ico svg { width: 28px; height: 28px; }
-.card--blue  .card__ico { background: rgba(14,92,168,.10); color: var(--color-primary); }
-.card--green .card__ico { background: var(--color-green-subtle); color: var(--color-green-dark); }
+.card--blue  .card__ico { background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark)); box-shadow: 0 8px 20px rgba(14,92,168,.28); }
+.card--green .card__ico { background: linear-gradient(135deg, #2fbf57, var(--color-green-dark)); box-shadow: 0 8px 20px rgba(30,158,62,.28); }
+/* colour rotation for service cards (no explicit variant) */
+#services .card:nth-child(3n+2) .card__ico { background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark)); box-shadow: 0 8px 20px rgba(14,92,168,.28); }
+#services .card:nth-child(3n) .card__ico { background: linear-gradient(135deg, #2fbf57, var(--color-green-dark)); box-shadow: 0 8px 20px rgba(30,158,62,.28); }
 .card h3 { margin-bottom: var(--space-2); }
 .card p { font-size: var(--text-base); margin-bottom: var(--space-4); }
 .card__list { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-5); }
